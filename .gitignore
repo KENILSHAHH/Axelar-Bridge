@@ -9,7 +9,7 @@
 /coverage
 
 # next.js
-
+/.next/
 /out/
 
 # production
@@ -34,6 +34,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
+.env
 
+artifacts
+cache
 
-
+local.json
