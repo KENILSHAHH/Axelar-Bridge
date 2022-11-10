@@ -36,7 +36,4 @@ yarn-error.log*
 
 .env
 
-artifacts
-cache
 
-local.json
