@@ -2,7 +2,7 @@ import { Contract, getDefaultProvider } from 'ethers';
 import { AxelarQueryAPI, Environment, EvmChain, GasToken } from '@axelar-network/axelarjs-sdk';
 
 import ERC721 from '../artifacts/contracts/ERC721demo.sol/ERC721Demo.json';
-import NftLinker from '../artifacts/contracts/NFTLinker.sol/NFTLinker.json';
+import NftLinker from '../artifacts/contracts/NFTLinker.sol/NftLinker.json';
 import { isTestnet, wallet } from '../config/constants';
 import { defaultAbiCoder, keccak256 } from 'ethers/lib/utils';
 import { sleep } from './sleep';
