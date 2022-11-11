@@ -102,7 +102,7 @@ const Home: NextPage = () => {
     return (
         <div>
            
-            <h2 className="m-5 text-2xl font-medium text-center">MulletVerse cross chain app using axelar</h2>
+            <h2 className="m-5 text-2xl font-medium text-center">Mulletverse cross chain app using axelar</h2>
 
             <div className="grid grid-cols-2 gap-20 mt-10 justify-items-center">
                 {/* source chain card */}
