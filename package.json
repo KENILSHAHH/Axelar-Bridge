@@ -21,6 +21,7 @@
     "daisyui": "^2.18.0",
     "dotenv": "^16.0.1",
     "ethers": "^5.6.9",
+    "firebase": "^9.14.0",
     "firebase-tools": "^11.16.0",
     "heroku": "^7.66.2",
     "next": "12.2.0",
