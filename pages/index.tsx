@@ -102,7 +102,7 @@ const Home: NextPage = () => {
     return (
         <div>
            
-            <h2 className="m-5 text-2xl font-medium text-center">Send NFTs Between Chains</h2>
+            <h2 className="m-5 text-2xl font-medium text-center">MulletVerse cross chain app using axelar</h2>
 
             <div className="grid grid-cols-2 gap-20 mt-10 justify-items-center">
                 {/* source chain card */}
@@ -110,7 +110,7 @@ const Home: NextPage = () => {
                     txhash as string,
                     chains.find((chain: any) => chain.name === 'Fantom'),
                     handleSendSource,
-                    'Send to Avalanche',
+                    'Send to Polygon',
                     
                     loading,
                     owner,
@@ -122,7 +122,7 @@ const Home: NextPage = () => {
                     destTxHash as string,
                     chains.find((chain: any) => chain.name === 'Polygon'),
                     handleSendBack,
-                    'Send to Moonbeam',
+                    'Send to Fantom',
                     
                     loading,
                     owner,
