@@ -7,7 +7,7 @@ const {
 } = require('@axelar-network/axelar-local-dev');
 const { deployUpgradable } = require('@axelar-network/axelar-gmp-sdk-solidity');
 
-// load contractsavalanche
+// load contractspolygon
 const ExampleProxy = require('../artifacts/contracts/Proxy.sol/ExampleProxy.json');
 const NFTLinker = require('../artifacts/contracts/NFTLinker.sol/NFTLinker.json');
 const ERC721 = require('../artifacts/contracts/ERC721demo.sol/ERC721Demo.json');
@@ -15,10 +15,10 @@ const ERC721 = require('../artifacts/contracts/ERC721demo.sol/ERC721Demo.json');
 let chains = isTestnet ? require('../config/testnet.json') : require('../config/local.json');
 
 // get chains
-// const moonbeamChain = chains.find((chain: any) => chain.name === 'Moonbeam');
-// const avalancheChain = chains.find((chain: any) => chain.name === 'Avalanche');
-const moonbeamChain  = chains.find((chain: any) => chain.name === 'Moonbeam');
-const avalancheChain  = chains.find((chain: any) => chain.name === 'Avalanche');
+// const fantomChain = chains.find((chain: any) => chain.name === 'fantom');
+// const polygonChain = chains.find((chain: any) => chain.name === 'polygon');
+// const fantomChain  = chains.find((chain: any) => chain.name === 'fantom');
+// const polygonChain  = chains.find((chain: any) => chain.name === 'polygon');
 const fantomChain  = chains.find((chain: any) => chain.name === 'Fantom');
 const ethereumChain  = chains.find((chain: any) => chain.name === 'Ethereum');
 const polygonChain = chains.find((chain:any ) => chain.name === 'Polygon');
@@ -38,7 +38,7 @@ async function deployNFTContracts(chain: any) {
     chain.erc721 = erc721.address;
     console.log(`ERC721Demo deployed on ${chain.name} ${erc721.address}.`);
 
-    if (chain.name === 'Moonbeam') {
+    if (chain.name === 'Fantom') {
         const hash = "QmPGrjwCuHKLvbvcSXHLWSgsjfUVx2faV2xsN4b9VB9ogL";
         const metadata = `https://ipfs.io/ipfs/${hash}`;
         await (await erc721.mintWithMetadata(nftTokenId, hash, metadata)).wait(1);
@@ -65,12 +65,12 @@ async function deployNFTContracts(chain: any) {
 
 async function main() {
 
-    for await (let chain of [moonbeamChain,avalancheChain]) {
+    for await (let chain of [fantomChain,polygonChain]) {
         await deployNFTContracts(chain);
     }
 
     // update chains
-    const updatedChains = [moonbeamChain,avalancheChain];
+    const updatedChains = [fantomChain,polygonChain];
     if (isTestnet) {
         await fs.writeFile('config/testnet.json', JSON.stringify(updatedChains, null, 2));
     } else {

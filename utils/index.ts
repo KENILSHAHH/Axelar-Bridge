@@ -11,19 +11,19 @@ const tokenId = 0;
 
 let chains = isTestnet ? require('../config/testnet.json') : require('../config/local.json');
 
-const moonbeamChain = chains.find((chain: any) => chain.name === 'Moonbeam') as any;
-const avalancheChain = chains.find((chain: any) => chain.name === 'Avalanche') as any;
+// const fantomChain = chains.find((chain: any) => chain.name === 'fantom') as any;
+// const polygonChain = chains.find((chain: any) => chain.name === 'polygon') as any;
 // const ethereumChain = chains.find((chain: any) => chain.name === 'Ethereum') as any;
-// const fantomChain = chains.find((chain: any) => chain.name === 'Fantom') as any;
-// const polygonChain = chains.find((chain: any) => chain.name === 'Polygon') as any;
+const fantomChain = chains.find((chain: any) => chain.name === 'Fantom') as any;
+const polygonChain = chains.find((chain: any) => chain.name === 'Polygon') as any;
 
 export function updateContractsOnChainConfig(chain: any): void {
     chain.wallet = wallet.connect(getDefaultProvider(chain.rpc));
     chain.contract = new Contract(chain.nftLinker as string, NftLinker.abi, chain.wallet);
     chain.erc721 = new Contract(chain.erc721 as string, ERC721.abi, chain.wallet);
 }
-updateContractsOnChainConfig(moonbeamChain);
-updateContractsOnChainConfig(avalancheChain);
+updateContractsOnChainConfig(fantomChain);
+updateContractsOnChainConfig(polygonChain);
 // updateContractsOnChainConfig(ethereumChain);
 // updateContractsOnChainConfig(fantomChain);
 // updateContractsOnChainConfig(polygonChain);
@@ -36,11 +36,11 @@ export async function sendNftToDest(onSrcConfirmed: (txHash: string) => void, on
     console.log('--- Initially ---', owner);
     await print();
 
-    const gasFee = getGasFee(EvmChain.MOONBEAM , EvmChain.AVALANCHE, GasToken.AVAX);
+    const gasFee = getGasFee(EvmChain.FANTOM , EvmChain.POLYGON, GasToken.AVAX);
 
-    await (await moonbeamChain.erc721.approve(moonbeamChain.contract.address, owner.tokenId)).wait();
+    await (await fantomChain.erc721.approve(fantomChain.contract.address, owner.tokenId)).wait();
     const tx = await (
-        await moonbeamChain.contract.sendNFT(moonbeamChain.erc721.address, owner.tokenId, avalancheChain.name, wallet.address, {
+        await fantomChain.contract.sendNFT(fantomChain.erc721.address, owner.tokenId, polygonChain.name, wallet.address, {
             value: gasFee,
         })
     ).wait();
@@ -51,7 +51,7 @@ export async function sendNftToDest(onSrcConfirmed: (txHash: string) => void, on
 
     while (true) {
         const owner = await ownerOf();
-        if (owner.chain == avalancheChain.name) {
+        if (owner.chain == polygonChain.name) {
             onSent(owner);
             break;
         }
@@ -101,10 +101,10 @@ export async function sendNftBack(onSrcConfirmed: (txHash: string) => void, onSe
     console.log('--- Initially ---', owner);
     await print();
 
-    const gasFee = getGasFee(EvmChain.AVALANCHE, EvmChain.MOONBEAM, GasToken.GLMR);
+    const gasFee = getGasFee(EvmChain.POLYGON, EvmChain.FANTOM, GasToken.GLMR);
 
     const tx = await (
-        await avalancheChain.contract.sendNFT(avalancheChain.contract.address, owner.tokenId, moonbeamChain.name, wallet.address, {
+        await polygonChain.contract.sendNFT(polygonChain.contract.address, owner.tokenId, fantomChain.name, wallet.address, {
             value: gasFee,
         })
     ).wait();
@@ -115,7 +115,7 @@ export async function sendNftBack(onSrcConfirmed: (txHash: string) => void, onSe
 
     while (true) {
         const owner = await ownerOf();
-        if (owner.chain == moonbeamChain.name) {
+        if (owner.chain == fantomChain.name) {
             onSent(owner);
             break;
         }
@@ -191,7 +191,7 @@ export function truncatedAddress(address: string): string {
     return address.substring(0, 6) + '...' + address.substring(address.length - 10);
 }
 
-export const ownerOf = async (chain = moonbeamChain) => {
+export const ownerOf = async (chain = fantomChain) => {
     const operator = chain.erc721;
     const owner = await operator.ownerOf(tokenId);
     const metadata = await operator.tokenURI(tokenId);
@@ -202,7 +202,7 @@ export const ownerOf = async (chain = moonbeamChain) => {
         const newTokenId = BigInt(
             keccak256(defaultAbiCoder.encode(['string', 'address', 'uint256', 'string'], [chain.name, operator.address, tokenId, metadata]))
         );
-        for (let checkingChain of [moonbeamChain, avalancheChain]) {
+        for (let checkingChain of [fantomChain, polygonChain]) {
             if (checkingChain == chain) continue;
             try {
                 const address = await checkingChain.contract.ownerOf(newTokenId);

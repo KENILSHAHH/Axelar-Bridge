@@ -8,28 +8,21 @@
     "tokens": {},
     "rpc": "http://localhost:8500/0",
     "tokenName": "Fantom",
-    "tokenSymbol": "FTM"
-  },
-  {
-    "name": "Ethereum",
-    "chainId": 2501,
-    "gateway": "0x043f57C16f6322E42F6D1deB46E0F53e6FaA3379",
-    "gasReceiver": "0x8Fd1a92a56e49C1b9FAda0015b9Ac51E4a52D181",
-    "constAddressDeployer": "0x69aeB7Dc4f2A86873Dae8D753DE89326Cf90a77a",
-    "tokens": {},
-    "rpc": "http://localhost:8500/1",
-    "tokenName": "Ether",
-    "tokenSymbol": "ETH"
+    "tokenSymbol": "FTM",
+    "erc721": "0xb09da8a5B236fE0295A345035287e80bb0008290",
+    "nftLinker": "0xD6A2122f667CAaF110905473aa5135765344F10a"
   },
   {
     "name": "Polygon",
-    "chainId": 2502,
+    "chainId": 2501,
     "gateway": "0x186038359000c32da660ecA49C3d494001A30Ffe",
     "gasReceiver": "0xe90560ba227BA579eb4D883abe73E85a9123a615",
     "constAddressDeployer": "0x69aeB7Dc4f2A86873Dae8D753DE89326Cf90a77a",
     "tokens": {},
-    "rpc": "http://localhost:8500/2",
+    "rpc": "http://localhost:8500/1",
     "tokenName": "Matic",
-    "tokenSymbol": "MATIC"
+    "tokenSymbol": "MATIC",
+    "erc721": "0xb09da8a5B236fE0295A345035287e80bb0008290",
+    "nftLinker": "0xD6A2122f667CAaF110905473aa5135765344F10a"
   }
 ]

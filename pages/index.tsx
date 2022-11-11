@@ -108,7 +108,7 @@ const Home: NextPage = () => {
                 {/* source chain card */}
                 {generateCard(
                     txhash as string,
-                    chains.find((chain: any) => chain.name === 'Moonbeam'),
+                    chains.find((chain: any) => chain.name === 'Fantom'),
                     handleSendSource,
                     'Send to Avalanche',
                     
@@ -120,7 +120,7 @@ const Home: NextPage = () => {
                 {/* Destination chain card */}
                 {generateCard(
                     destTxHash as string,
-                    chains.find((chain: any) => chain.name === 'Avalanche'),
+                    chains.find((chain: any) => chain.name === 'Polygon'),
                     handleSendBack,
                     'Send to Moonbeam',
                     
