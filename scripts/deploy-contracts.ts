@@ -38,7 +38,7 @@ async function deployNFTContracts(chain: any) {
     chain.erc721 = erc721.address;
     console.log(`ERC721Demo deployed on ${chain.name} ${erc721.address}.`);
 
-    if (chain.name === 'Fantom') {
+    if (chain.name === 'Polygon') {
         const hash = "QmPGrjwCuHKLvbvcSXHLWSgsjfUVx2faV2xsN4b9VB9ogL";
         const metadata = `https://ipfs.io/ipfs/${hash}`;
         await (await erc721.mintWithMetadata(nftTokenId, hash, metadata)).wait(1);
@@ -65,12 +65,12 @@ async function deployNFTContracts(chain: any) {
 
 async function main() {
 
-    for await (let chain of [fantomChain,polygonChain]) {
+    for await (let chain of [polygonChain,fantomChain]) {
         await deployNFTContracts(chain);
     }
 
     // update chains
-    const updatedChains = [fantomChain,polygonChain];
+    const updatedChains = [polygonChain,fantomChain];
     if (isTestnet) {
         await fs.writeFile('config/testnet.json', JSON.stringify(updatedChains, null, 2));
     } else {

@@ -22,8 +22,8 @@ export function updateContractsOnChainConfig(chain: any): void {
     chain.contract = new Contract(chain.nftLinker as string, NftLinker.abi, chain.wallet);
     chain.erc721 = new Contract(chain.erc721 as string, ERC721.abi, chain.wallet);
 }
-updateContractsOnChainConfig(fantomChain);
 updateContractsOnChainConfig(polygonChain);
+updateContractsOnChainConfig(fantomChain);
 // updateContractsOnChainConfig(ethereumChain);
 // updateContractsOnChainConfig(fantomChain);
 // updateContractsOnChainConfig(polygonChain);
@@ -36,11 +36,11 @@ export async function sendNftToDest(onSrcConfirmed: (txHash: string) => void, on
     console.log('--- Initially ---', owner);
     await print();
 
-    const gasFee = getGasFee(EvmChain.FANTOM , EvmChain.POLYGON, GasToken.AVAX);
+    const gasFee = getGasFee(EvmChain.POLYGON , EvmChain.FANTOM, GasToken.MATIC);
 
-    await (await fantomChain.erc721.approve(fantomChain.contract.address, owner.tokenId)).wait();
+    await (await polygonChain.erc721.approve(polygonChain.contract.address, owner.tokenId)).wait();
     const tx = await (
-        await fantomChain.contract.sendNFT(fantomChain.erc721.address, owner.tokenId, polygonChain.name, wallet.address, {
+        await polygonChain.contract.sendNFT(polygonChain.erc721.address, owner.tokenId, fantomChain.name, wallet.address, {
             value: gasFee,
         })
     ).wait();
@@ -51,7 +51,7 @@ export async function sendNftToDest(onSrcConfirmed: (txHash: string) => void, on
 
     while (true) {
         const owner = await ownerOf();
-        if (owner.chain == polygonChain.name) {
+        if (owner.chain == fantomChain.name) {
             onSent(owner);
             break;
         }
@@ -101,10 +101,10 @@ export async function sendNftBack(onSrcConfirmed: (txHash: string) => void, onSe
     console.log('--- Initially ---', owner);
     await print();
 
-    const gasFee = getGasFee(EvmChain.POLYGON, EvmChain.FANTOM, GasToken.GLMR);
+    const gasFee = getGasFee(EvmChain.FANTOM, EvmChain.POLYGON, GasToken.FTM);
 
     const tx = await (
-        await polygonChain.contract.sendNFT(polygonChain.contract.address, owner.tokenId, fantomChain.name, wallet.address, {
+        await fantomChain.contract.sendNFT(fantomChain.contract.address, owner.tokenId, polygonChain.name, wallet.address, {
             value: gasFee,
         })
     ).wait();
@@ -115,7 +115,7 @@ export async function sendNftBack(onSrcConfirmed: (txHash: string) => void, onSe
 
     while (true) {
         const owner = await ownerOf();
-        if (owner.chain == fantomChain.name) {
+        if (owner.chain == polygonChain.name) {
             onSent(owner);
             break;
         }
@@ -191,7 +191,7 @@ export function truncatedAddress(address: string): string {
     return address.substring(0, 6) + '...' + address.substring(address.length - 10);
 }
 
-export const ownerOf = async (chain = fantomChain) => {
+export const ownerOf = async (chain = polygonChain) => {
     const operator = chain.erc721;
     const owner = await operator.ownerOf(tokenId);
     const metadata = await operator.tokenURI(tokenId);
@@ -202,7 +202,7 @@ export const ownerOf = async (chain = fantomChain) => {
         const newTokenId = BigInt(
             keccak256(defaultAbiCoder.encode(['string', 'address', 'uint256', 'string'], [chain.name, operator.address, tokenId, metadata]))
         );
-        for (let checkingChain of [fantomChain, polygonChain]) {
+        for (let checkingChain of [polygonChain,fantomChain ]) {
             if (checkingChain == chain) continue;
             try {
                 const address = await checkingChain.contract.ownerOf(newTokenId);
@@ -227,6 +227,6 @@ const getGasFee = async (
     estimatedGasUsed?: number
 ) => {
     const api = new AxelarQueryAPI({ environment: Environment.TESTNET });
-    const gasFee = isTestnet ? await api.estimateGasFee(sourceChainName, destinationChainName, sourceChainTokenSymbol) : 3e6;
+    const gasFee = isTestnet ? await api.estimateGasFee(sourceChainName, destinationChainName, sourceChainTokenSymbol) : 2e4;
     return gasFee;
 };

@@ -108,9 +108,9 @@ const Home: NextPage = () => {
                 {/* source chain card */}
                 {generateCard(
                     txhash as string,
-                    chains.find((chain: any) => chain.name === 'Fantom'),
+                    chains.find((chain: any) => chain.name === 'Polygon'),
                     handleSendSource,
-                    'Send to Polygon',
+                    'Send to fantom',
                     
                     loading,
                     owner,
@@ -120,9 +120,9 @@ const Home: NextPage = () => {
                 {/* Destination chain card */}
                 {generateCard(
                     destTxHash as string,
-                    chains.find((chain: any) => chain.name === 'Polygon'),
+                    chains.find((chain: any) => chain.name === 'Fantom'),
                     handleSendBack,
-                    'Send to Fantom',
+                    'Send to Polygon',
                     
                     loading,
                     owner,

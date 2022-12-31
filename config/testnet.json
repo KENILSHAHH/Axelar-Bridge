@@ -1,19 +1,5 @@
 [
   {
-    "name": "Fantom",
-    "chainId": 4002,
-    "gateway": "0x97837985Ec0494E7b9C71f5D3f9250188477ae14",
-    "rpc": "https://rpc.testnet.fantom.network/",
-    "gasReceiver": "0xbE406F0189A0B4cf3A05C286473D23791Dd44Cc6",
-    "tokenName": "FTM",
-    "tokenSymbol": "FTM",
-    "executableSample": "0x2120A291a99746726CFa3bCcd3C388da75f7e718",
-    "constAddressDeployer": "0xd5bf7311032fe5dde956de6f2916f135a140e7dd",
-    "crossChainToken": "0xb5ADB662B1DebDCc96c4d7c406aDF20F310aEe0B",
-    "erc721": "0x549fc501c6c2a10457690c821d734028eD34E01F",
-    "nftLinker": "0x4f66d62519a0E8d8fFC79Ec26b2c31Ce7BE90149"
-  },
-  {
     "name": "Polygon",
     "chainId": 80001,
     "rpc": "https://rpc-mumbai.maticvigil.com/",
@@ -24,7 +10,21 @@
     "executableSample": "0x9372350Abb3B5c10DB1BB858e0bCf91eFa74d946",
     "constAddressDeployer": "0xd5bf7311032fe5dde956de6f2916f135a140e7dd",
     "crossChainToken": "0xb5ADB662B1DebDCc96c4d7c406aDF20F310aEe0B",
-    "erc721": "0xb86180655324907c09Acb78381450D79bADbb537",
+    "erc721": "0xd6feB627A0FfF9b3768176D42554779c9eA44bBe",
+    "nftLinker": "0x4f66d62519a0E8d8fFC79Ec26b2c31Ce7BE90149"
+  },
+  {
+    "name": "Fantom",
+    "chainId": 4002,
+    "gateway": "0x97837985Ec0494E7b9C71f5D3f9250188477ae14",
+    "rpc": "https://rpc.ankr.com/fantom_testnet/",
+    "gasReceiver": "0xbE406F0189A0B4cf3A05C286473D23791Dd44Cc6",
+    "tokenName": "Ftm",
+    "tokenSymbol": "FTM",
+    "executableSample": "0x2120A291a99746726CFa3bCcd3C388da75f7e718",
+    "constAddressDeployer": "0xd5bf7311032fe5dde956de6f2916f135a140e7dd",
+    "crossChainToken": "0xb5ADB662B1DebDCc96c4d7c406aDF20F310aEe0B",
+    "erc721": "0x440b4a7b74665B093b6BF336b367680bb32c6A85",
     "nftLinker": "0x4f66d62519a0E8d8fFC79Ec26b2c31Ce7BE90149"
   }
 ]
